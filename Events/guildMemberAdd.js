@@ -1,0 +1,9 @@
+module.exports = async (client, member) => {
+    // Загрузчик событий дискорда из модулей:
+    client.DiscordEvents.forEach((value, key) => {
+        if (key == "guildMemberAdd") {
+            const DisEvents = require(`${value}`);
+            DisEvents(client, message, client.BD);
+        }
+    });
+}
