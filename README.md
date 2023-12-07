@@ -2,6 +2,8 @@
 # Как установить:
 * Устанавливаем Node js.
 * Загружаем файлы бота и распаковываем в удобном для вас месте.
+* Устанавливаем discord.js - npm install discord.js.
+* инициализируем папку - npm init.
 * Запускаем через cmd или же через visual studio.
 # Как писать модули для бота:
 * Смотрим по примеру TestModule в Modules.
@@ -10,6 +12,8 @@
 # How to install:
 * Installing Node js.
 * Download the bot files and unpack them in a convenient place for you.
+* Install discord.js - npm install discord.js.
+* initialize the folder - npm init.
 * Run via cmd or via visual studio.
 # How to write modules for a bot:
 * We look at the example of the Test Module in Modules.
