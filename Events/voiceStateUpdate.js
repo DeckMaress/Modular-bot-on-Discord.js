@@ -7,9 +7,14 @@ module.exports = async (client, oldState, newState) => {
 
         // Загрузчик событий дискорда из модулей:
         client.DiscordEvents.forEach((value, key) => {
-                if (key == "voiceStateUpdate") {
-                        const DisEvents = require(`${value}`);
-                        DisEvents(client, message, client.BD);
+                if (key[1] == "voiceStateUpdate") {
+                        try {
+                                let DisEvents = require(`${key[2]}`);
+                                DisEvents(client, oldState, newState, client.BD);
+                        }
+                        catch (error) {
+                                console.log(client.ConsoleColors.FgRed, `${error}`, client.ConsoleColors.Reset);
+                        }
                 }
         });
 }

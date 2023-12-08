@@ -1,9 +1,16 @@
 module.exports = async (client, guild) => {
-    // Загрузчик событий дискорда из модулей:
-    client.DiscordEvents.forEach((value, key) => {
-        if (key == "guildCreate") {
-            const DisEvents = require(`${value}`);
-            DisEvents(client, message, client.BD);
-        }
-    });
+    if (guild.available) {
+        // Загрузчик событий дискорда из модулей:
+        client.DiscordEvents.forEach((value, key) => {
+            if (key[1] == "guildCreate") {
+                try {
+                    let DisEvents = require(`${key[2]}`);
+                    DisEvents(client, guild, client.BD);
+                }
+                catch (error) {
+                    console.log(client.ConsoleColors.FgRed, `${error}`, client.ConsoleColors.Reset);
+                }
+            }
+        });
+    }
 }

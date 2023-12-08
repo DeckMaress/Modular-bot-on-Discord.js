@@ -1,7 +1,17 @@
 module.exports = async (client, interaction) => {
-    // Ниже идут загрузчики взаимодействий (interaction)! Не трогайте, если не знаете, что здесь и зачем.
+    // Загрузчик событий дискорда из модулей:
+    client.DiscordEvents.forEach((value, key) => {
+        if (key[1] == "interactionCreate") {
+            try {
+                let DisEvents = require(`${key[2]}`);
+                DisEvents(client, interaction, client.BD);
+            }
+            catch (error) {
+                console.log(client.ConsoleColors.FgRed, `${error}`, client.ConsoleColors.Reset);
+            }
+        }
+    });
 
-    // (/) Слеш команды:
     if (interaction.isChatInputCommand()) {
         const SlashCommand = interaction.commandName;
         const cmd = client.SlashCommands.get(SlashCommand);
@@ -45,8 +55,6 @@ module.exports = async (client, interaction) => {
             }
         }
     }
-
-    // Кнопки:
     else if (interaction.isButton()) {
         let prefix = '!';
         if (!interaction.customId.startsWith(prefix, 0)) {
@@ -93,8 +101,6 @@ module.exports = async (client, interaction) => {
             }
         }
     }
-
-    // Модальные окна:
     else if (interaction.isModalSubmit()) {
         let prefix = '!';
         if (!interaction.customId.startsWith(prefix, 0)) {
@@ -142,8 +148,6 @@ module.exports = async (client, interaction) => {
             }
         }
     }
-
-    // Выпадающие списки:
     else if (interaction.isStringSelectMenu() || interaction.isUserSelectMenu() || interaction.isRoleSelectMenu() || interaction.isChannelSelectMenu()) {
         let prefix = '!';
         if (!interaction.customId.startsWith(prefix, 0)) {

@@ -1,9 +1,17 @@
 module.exports = async (client, member) => {
-    // Загрузчик событий дискорда из модулей:
-    client.DiscordEvents.forEach((value, key) => {
-        if (key == "guildMemberRemove") {
-            const DisEvents = require(`${value}`);
-            DisEvents(client, message, client.BD);
-        }
-    });
+    let guild = member.guild;
+    if (!member.bot) {
+        // Загрузчик событий дискорда из модулей:
+        client.DiscordEvents.forEach((value, key) => {
+            if (key[1] == "guildMemberRemove") {
+                try {
+                    let DisEvents = require(`${key[2]}`);
+                    DisEvents(client, member, client.BD);
+                }
+                catch (error) {
+                    console.log(client.ConsoleColors.FgRed, `${error}`, client.ConsoleColors.Reset);
+                }
+            }
+        });
+    }
 }

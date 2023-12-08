@@ -3,13 +3,18 @@ module.exports = async (client, message) => {
     if (!message.guild) return;
 
     // Игнорировать ботов:
-    if (message.author.bot) return;
-    
+    if (message.author?.bot) return;
+
     // Загрузчик событий дискорда из модулей:
     client.DiscordEvents.forEach((value, key) => {
-        if (key == "messageDelete") {
-            const DisEvents = require(`${value}`);
-            DisEvents(client, message, client.BD);
+        if (key[1] == "messageDelete") {
+            try {
+                let DisEvents = require(`${key[2]}`);
+                DisEvents(client, message, client.BD);
+            }
+            catch (error) {
+                console.log(client.ConsoleColors.FgRed, `${error}`, client.ConsoleColors.Reset);
+            }
         }
     });
 };

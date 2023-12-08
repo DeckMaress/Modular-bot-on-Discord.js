@@ -1,6 +1,6 @@
 {
   "name": "deckmaress_bot_discord.js",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Modular bot on Discord.js.",
   "main": "bot.js",
   "dependencies": {
